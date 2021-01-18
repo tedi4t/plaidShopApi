@@ -1,3 +1,4 @@
 {   
-    
+    "Order.all": [],
+    "Order.add": ["size", "color", "price", "comment", "delivery", "adress", "processed"]
 }

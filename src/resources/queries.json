@@ -1,3 +1,4 @@
 {  
-    
+    "Order.all": "SELECT * FROM orders;",
+    "Order.add": "INSERT INTO orders VALUES (default, $1, $2, $3, $4, $5, $6, $7);"
 }
