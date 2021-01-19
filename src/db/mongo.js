@@ -1,0 +1,37 @@
+'use strict';
+
+const mongoose = require('mongoose');
+
+const { mongoURL } = require('../config');
+
+async function openConnection(URL = mongoURL) {
+  mongoose.connect(URL, { useNewUrlParser: true });
+}
+
+async function readFromMongo(obj, model) {
+  return await model.findOne(obj);
+}
+
+async function writeToMongo(obj, Model, callback) {
+  const model = new Model(obj);
+  model.save(async err => {
+    if (err) return console.log(err.message);
+    if (callback) callback();
+  });
+}
+
+async function closeConnection() {
+  mongoose.connection.close();
+}
+
+async function overwrite(baseName, newObj, model) {
+  await model.replaceOne({ baseName }, newObj);
+}
+
+module.exports = {
+  openConnection,
+  readFromMongo,
+  writeToMongo,
+  closeConnection,
+  overwrite,
+};
