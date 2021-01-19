@@ -2,10 +2,14 @@
 
 const mongoose = require('mongoose');
 
-const { mongoURL } = require('../config');
+const { mongoUrl } = require('../config');
 
-async function openConnection(URL = mongoURL) {
-  mongoose.connect(URL, { useNewUrlParser: true });
+async function openConnection(URL = mongoUrl) {
+  mongoose.connect(URL, { useNewUrlParser: true })
+}
+
+async function readFromMongo(obj, model) {
+  return await model.findOne(obj);
 }
 
 async function readFromMongo(obj, model) {
