@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 // Question Schema
-const orderSchema = mongoose.Schema({
+const questionSchema = mongoose.Schema({
   question_id: {
     type: Number,
     required: true,
@@ -23,6 +23,6 @@ const orderSchema = mongoose.Schema({
   },
 });
 
-const Order = mongoose.model('Question', orderSchema, 'questions');
+const Question = mongoose.model('Question', questionSchema, 'questions');
 
-module.exports = Order;
+module.exports = Question;
