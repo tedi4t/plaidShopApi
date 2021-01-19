@@ -21,9 +21,9 @@ const orderSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  comment: {
+  phone: {
     type: String,
-    required: false
+    required: true
   },
   called: {
     type: Boolean,

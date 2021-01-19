@@ -23,13 +23,14 @@ router.get('/all', async (req, res) => {
 router.post('/add', async (req, res) => {
   mongo.openConnection().then(async () => {
     try{
-      const { color, size, price } = req.query;
+      const { color, size, price, phone } = req.query;
       const count = await mongo.count({}, Order);
       mongo.writeToMongo({
         order_id: count + 1,
         color,
         size,
-        price
+        price,
+        phone,
       }, Order, () => {
         mongo.closeConnection();
         res.json('Success!');
