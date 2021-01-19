@@ -32,11 +32,11 @@ router.post('/add', async (req, res) => {
         price
       }, Order, () => {
         mongo.closeConnection();
-        console.log(err.message);
         res.json('Success!');
       })
     } catch(e) {
       mongo.closeConnection();
+      console.log(err.message);
       res.status(200).json('Something went wrong...');
     }
   })
