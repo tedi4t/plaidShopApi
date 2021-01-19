@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const { mongoUrl } = require('../config');
 
 async function openConnection(URL = mongoUrl) {
-  mongoose.connect(URL, { useNewUrlParser: true })
+  mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true })
 }
 
 async function readFromMongo(obj, model) {
@@ -21,7 +21,7 @@ async function writeToMongo(obj, Model, callback) {
 }
 
 async function count(obj, model) {
-  return await model.find(obj).count();
+  return await model.find(obj).countDocuments();
 }
 
 async function closeConnection() {
