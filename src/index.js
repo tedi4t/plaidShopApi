@@ -12,8 +12,11 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
-const order = require('./routers/order.js');
+const order = require('./routers/order');
 app.use('/order', order);
+
+const question = require('./routers/question');
+app.use('/question', question);
 
 app.get('/', (req, res) => {
   res.json('Seccessfully connected to voting system');

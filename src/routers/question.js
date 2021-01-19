@@ -3,13 +3,13 @@
 const express = require('express');
 const router = express.Router();
 const mongo = require('../db/mongo');
-const Order = require('../models/order');
-const mongoose = require('mongoose');
-// get all districts
+const Question = require('../models/question');
+
+// get all questions
 router.get('/all', async (req, res) => {
   mongo.openConnection().then(async () => {
     try{
-      const result = await mongo.readFromMongo({}, Order);
+      const result = await mongo.readFromMongo({}, Question);
       res.json(result);
     } catch(e) {
       mongo.closeConnection();
@@ -19,18 +19,17 @@ router.get('/all', async (req, res) => {
   })
 });
 
-// get all regions
+// add new question
 router.post('/add', async (req, res) => {
   mongo.openConnection().then(async () => {
     try{
-      const { color, size, price } = req.query;
-      const count = await mongo.count({}, Order);
+      const { question, contact } = req.query;
+      const count = await mongo.count({}, Question);
       mongo.writeToMongo({
-        order_id: count + 1,
-        color,
-        size,
-        price
-      }, Order, () => {
+        question_id: count + 1,
+        question,
+        contact,
+      }, Question, () => {
         mongo.closeConnection();
         res.json('Success!');
       })
