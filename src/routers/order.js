@@ -7,12 +7,39 @@ const Order = require('../models/order');
 const mongoose = require('mongoose');
 // get all districts
 router.get('/all', async (req, res) => {
-
+  mongo.openConnection().then(async () => {
+    try{
+      const result = await mongo.readFromMongo({}, Order);
+      res.json(result);
+    } catch(e) {
+      mongo.closeConnection();
+      console.log(err.message);
+      res.status(200).json('Something went wrong...');
+    }
+  })
 });
 
 // get all regions
 router.post('/add', async (req, res) => {
-
+  mongo.openConnection().then(async () => {
+    try{
+      const { color, size, price } = req.query;
+      const count = await mongo.count({}, Order);
+      mongo.writeToMongo({
+        order_id: count + 1,
+        color,
+        size,
+        price
+      }, Order, () => {
+        mongo.closeConnection();
+        console.log(err.message);
+        res.json('Success!');
+      })
+    } catch(e) {
+      mongo.closeConnection();
+      res.status(200).json('Something went wrong...');
+    }
+  })
 });
 
 module.exports = router;

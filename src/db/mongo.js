@@ -9,11 +9,7 @@ async function openConnection(URL = mongoUrl) {
 }
 
 async function readFromMongo(obj, model) {
-  return await model.findOne(obj);
-}
-
-async function readFromMongo(obj, model) {
-  return await model.findOne(obj);
+  return await model.find(obj);
 }
 
 async function writeToMongo(obj, Model, callback) {
@@ -22,6 +18,10 @@ async function writeToMongo(obj, Model, callback) {
     if (err) return console.log(err.message);
     if (callback) callback();
   });
+}
+
+async function count(obj, model) {
+  return await model.find(obj).count();
 }
 
 async function closeConnection() {
@@ -38,4 +38,5 @@ module.exports = {
   writeToMongo,
   closeConnection,
   overwrite,
+  count,
 };
