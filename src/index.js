@@ -12,6 +12,15 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
+// check request origin
+// app.all('*', (req, res, next) => {
+//   if (req.headers['origin'] !== 'amberpuffy.com') {
+//     res.sendStatus(403);
+//   } else {
+//     next();
+//   }
+// })
+
 const order = require('./routers/order');
 app.use('/order', order);
 

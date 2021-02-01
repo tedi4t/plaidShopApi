@@ -25,6 +25,10 @@ const orderSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  date: {
+    type: String,
+    required: false
+  },
   called: {
     type: Boolean,
     default: false

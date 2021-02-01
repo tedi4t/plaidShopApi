@@ -5,6 +5,7 @@ const router = express.Router();
 const mongo = require('../db/mongo');
 const Order = require('../models/order');
 const mongoose = require('mongoose');
+
 // get all districts
 router.get('/all', async (req, res) => {
   mongo.openConnection().then(async () => {
@@ -25,13 +26,15 @@ router.post('/add', async (req, res) => {
     try{
       const { color, size, price, phone } = req.query;
       const count = await mongo.count({}, Order);
-      mongo.writeToMongo({
+      const order = {
         order_id: count + 1,
         color,
         size,
         price,
         phone,
-      }, Order, () => {
+        date: JSON.stringify(new Date())
+      };
+      mongo.writeToMongo(order, Order, () => {
         mongo.closeConnection();
         res.json('Success!');
       })

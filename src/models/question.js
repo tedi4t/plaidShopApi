@@ -17,6 +17,10 @@ const questionSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  date: {
+    type: String,
+    required: false
+  },
   processed: {
     type: Boolean,
     default: false

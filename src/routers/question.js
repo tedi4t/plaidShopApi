@@ -25,11 +25,13 @@ router.post('/add', async (req, res) => {
     try{
       const { question, contact } = req.query;
       const count = await mongo.count({}, Question);
-      mongo.writeToMongo({
+      const orderObj = {
         question_id: count + 1,
         question,
         contact,
-      }, Question, () => {
+        date: JSON.stringify(new Date())
+      }
+      mongo.writeToMongo(orderObj, Question, () => {
         mongo.closeConnection();
         res.json('Success!');
       })
